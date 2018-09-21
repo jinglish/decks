@@ -1,5 +1,7 @@
 class Deck {
 
+    cards = [];
+    
     constructor () {
         
     }
@@ -13,7 +15,7 @@ class Deck {
     }
 
     popCard () {
-
+        return this.cards.pop();
     }
 
     getDeckWithDealtIndicators () {
