@@ -6,21 +6,29 @@ class Deck {
     
     constructor (id) {
         this.cards = this.getFreshSortedDeck();
+        this.shuffle();
         this.id = id;
         this.upsertDeckInPersistence();
     }
 
     getCards () {
-        return this.cards();
+        return this.cards;
     }
     
     shuffle () {
-
+        for (i = this.cards.length - 1; i > 0; i--) {
+            let randomToSwap = Math.floor(Math.random() * (i + 1));
+            let tempCard = this.cards[i];
+            this.cards[i] = this.cards[j];
+            this.cards[j] = tempCard;
+        }
+        return this.cards;
     }
     
     cut () {
-        let backHalf = this.cards.slice(this.cards.length / 2);
-        let frontHalf = this.cards.slice(0, this.cards.length / 2);
+        let divider = Math.floor(this.cards.length);
+        let backHalf = this.cards.slice(divider);
+        let frontHalf = this.cards.slice(0, divider);
         this.cards = backHalf.concat(frontHalf);
         return this.cards;
     }
@@ -32,10 +40,10 @@ class Deck {
     }
 
     getDeckWithDealtIndicators () {
-
+        return this.cardsDealt.concat(this.cards);
     }
 
-    upsertDeckInPersistence (id) {
+    upsertDeckInPersistence () {
         
     }
 
