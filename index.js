@@ -1,6 +1,7 @@
 'use strict';
 
 var Express = require("express");
+const Deck = require('./deck');
 
 var app = Express();
 const APPLICATION_PORT = 3000;
