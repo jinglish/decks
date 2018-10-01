@@ -1,4 +1,4 @@
-describe ('Deck', function () {
+describe ('Deck', () => {
     const Deck = require('./deck');
     let deck;
     let mockId = 12345;
