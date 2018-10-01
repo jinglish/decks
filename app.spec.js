@@ -10,9 +10,15 @@ describe ('Server', () => {
             .end(finishTestCase(done));
     });
 
-    it ('should return a single card from the deck', (done) => {
-        request(app).get('')
-            .expect(200)
-            .end(finishTestCase(done));
+    describe('Tests on an existing deck', () => {
+        beforeEach(() => {
+            
+        });
+
+        it ('should return a single card from the deck', (done) => {
+            request(app).get('')
+                .expect(200)
+                .end(finishTestCase(done));
+        });
     });
 });

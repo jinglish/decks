@@ -1,63 +1,89 @@
-describe ('Deck', () => {
-    const Deck = require('./deck');
-    let deck;
-    let mockId = 12345;
+const Deck = require('./deck');
+let deck;
+
+describe ('Deck constructors', () => {
     let unshuffledDeck = [
         // Spades
-        'SA', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'SJ', 'SQ', 'SK',
+        '\u2660 A', '\u2660 2', '\u2660 3', '\u2660 4', '\u2660 5', '\u2660 6',
+        '\u2660 7', '\u2660 8', '\u2660 9', '\u2660 10', '\u2660 J', '\u2660 Q',
+        '\u2660 K',
         // Hearts
-        'HA', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10', 'HJ', 'HQ', 'HK',
+        '\u2665 A', '\u2665 2', '\u2665 3', '\u2665 4', '\u2665 5', '\u2665 6',
+        '\u2665 7', '\u2665 8', '\u2665 9', '\u2665 10', '\u2665 J', '\u2665 Q',
+        '\u2665 K',
         // Clubs
-        'CA', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10', 'CJ', 'CQ', 'CK',
+        '\u2663 A', '\u2663 2', '\u2663 3', '\u2663 4', '\u2663 5', '\u2663 6',
+        '\u2663 7', '\u2663 8', '\u2663 9', '\u2663 10', '\u2663 J', '\u2663 Q',
+        '\u2663 K',
         // Diamonds
-        'DA', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'DJ', 'DQ', 'DK'
+        '\u2666 A', '\u2666 2', '\u2666 3', '\u2666 4', '\u2666 5', '\u2666 6',
+        '\u2666 7', '\u2666 8', '\u2666 9', '\u2666 10', '\u2666 J', '\u2666 Q',
+        '\u2666 K'
     ];
+
+    it ('should initialize as a new shuffled deck with no arguments', () => {
+        deck = new Deck();
+        expect(deck.cards.length).toBe(52);
+        expect(deck.cards).not.toEqual(unshuffledDeck);
+    });
+
+    it ('should initialize a persisted deck with given characteristics', () => {
+        let persistedDeck = {
+            id: 12345,
+            cards: ['Card 1', 'Card 3'],
+            cardsDealt: ['Card 2']
+        };
+        deck = new Deck(persistedDeck);
+
+        expect(deck.id).toEqual(persistedDeck.id);
+        expect(deck.cards).toEqual(persistedDeck.cards);
+        expect(deck.cardsDealt).toEqual(persistedDeck.cardsDealt);
+    });
+});
+
+describe ('Deck functionality', () => {
+    let mockId = 12345;
     
     beforeEach (function () {
-        deck = new Deck(mockId);
-    });
-
-    it ('should initialize as a shuffled deck', function () {
-        expect(deck).not.toEqual(unshuffledDeck);
-    });
-
-    it ('should return the deck of cards', function () {
-        expect(deck.getCards().length).toBeTruthy();
+        deck = new Deck();
     });
 
     it ('should cut the full deck correctly', function () {
-        let originalCards = deck.getCards().slice(0);
+        let originalCards = deck.cards.slice(0);
         deck.cut();
-        expect(deck.getCards()).not.toEqual(originalCards);
+        expect(deck.cards).not.toEqual(originalCards);
     });
 
     it ('should cut a partial deck correctly', function () {
-        let originalDeck = deck.getCards().slice(0);
-        deck.popCard();
-        deck.popCard();
-        deck.popCard();
+        let originalDeck = deck.cards.slice(0);
+        deck.dealCard();
+        deck.dealCard();
+        deck.dealCard();
         originalDeck.pop();
         originalDeck.pop();
         originalDeck.pop();
         deck.cut();
-        expect(deck.getCards()).not.toEqual(originalDeck);
+        expect(deck.cards).not.toEqual(originalDeck);
     });
 
     it ('should shuffle the deck', function () {
-        let originalDeck = deck.getCards().slice(0);
+        let originalDeck = deck.cards.slice(0);
         deck.shuffle();
-        expect(deck.getCards()).not.toEqual(originalDeck);
+        expect(deck.cards).not.toEqual(originalDeck);
     });
 
     it ('should pop a single card from the deck', function () {
-        let card = deck.popCard();
+        let card = deck.dealCard();
         expect(card).toBeTruthy();
         expect(typeof(card)).toBe('string');
     });
 
     it ('should return a full deck with dealt cards indicated', function () {
-        poppedCard1 = deck.popCard();
-        poppedCard2 = deck.popCard();
-        expect
+        poppedCard1 = deck.dealCard();
+        poppedCard2 = deck.dealCard();
+        expect(deck.cards.includes(poppedCard1)).toBeFalsy();
+        expect(deck.cardsDealt.includes(poppedCard1)).toBeTruthy();
+        expect(deck.cards.includes(poppedCard2)).toBeFalsy();
+        expect(deck.cardsDealt.includes(poppedCard2)).toBeTruthy();
     });
 });
