@@ -42,7 +42,7 @@ app.get('/deck/:deckId/shuffle', (request, response) => {
 
         let deck = new Deck(persistedDeck);
         deck.shuffle();
-        database.update({_id: deck._id}, deck.toJson(), {upsert: true}, (err) => {
+        database.update({_id: deck._id}, deck.toJson(), {}, (err) => {
             if (err) {
                 return response.status(500).send(err.message);
             }
@@ -61,7 +61,7 @@ app.get('/deck/:deckId/cut', (request, response) => {
 
         let deck = new Deck(persistedDeck);
         deck.cut();
-        database.update({_id: deck._id}, deck.toJson(), {upsert: true}, (err) => {
+        database.update({_id: deck._id}, deck.toJson(), {}, (err) => {
             if (err) {
                 return response.status(500).send(err.message);
             }
@@ -80,7 +80,7 @@ app.get('/deck/:deckId/deal', (request, response) => {
 
         let deck = new Deck(persistedDeck);
         let card = deck.dealCard();
-        database.update({_id: deck._id}, deck.toJson(), {upsert: true}, (err) => {
+        database.update({_id: deck._id}, deck.toJson(), {}, (err) => {
             if (err) {
                 return response.status(500).send(err.message);
             }

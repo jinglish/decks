@@ -33,7 +33,6 @@ class Deck{
     }
 
     dealCard () {
-        console.log('in dealCard');
         let card =  this.cards.shift();
         this.cardsDealt.push(card);
         return card;
