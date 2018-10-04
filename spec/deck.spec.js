@@ -1,4 +1,4 @@
-const Deck = require('./deck');
+const Deck = require('../src/deck');
 let deck;
 
 describe ('Deck constructors', () => {
