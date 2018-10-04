@@ -32,7 +32,7 @@ describe ('Server', () => {
 
     describe ('Requested deck exists', () => {
         beforeAll (() => {
-            spyOn(database, 'findOne').and.returnValue(mockPersistedDeck);
+            //spyOn(database, 'findOne').and.returnValue(mockPersistedDeck);
         });
 
         describe ('deal', () => {
@@ -73,8 +73,7 @@ describe ('Server', () => {
 
     describe ('Requested deck doesn\'t exist', () => {
         beforeAll (() => {
-            spyOn(database, 'findOne').and.returnValue(null, null);
-            //database.insert(mockPersistedDeck);
+            //spyOn(database, 'findOne').and.returnValue(null, null);
         });
 
         it ('should 404 on deal if deck doesn\'t exist', (done) => {
